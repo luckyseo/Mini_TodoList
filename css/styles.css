@@ -1,3 +1,7 @@
+@import "bg.css";
+@import "todo.css";
+@import "others.css";
+
 .hidden {
     display: none;
 }
