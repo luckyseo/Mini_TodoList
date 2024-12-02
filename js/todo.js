@@ -17,12 +17,15 @@ function deleteTodo(event){
    //console.log(event.target.parentElement.innerText)
    const li = event.target.parentElement;
    li.remove()
+   toDos = toDos.filter(todo => todo.id !== parseInt(li.id))
+   saveTodos()
 }
 
-function paintTodo(newTodo){
+function paintTodo(newTodoObj){
     const li = document.createElement("li");
+    li.id=newTodoObj.id
     const span = document.createElement("span");
-    span.innerText = newTodo;
+    span.innerText = newTodoObj.text;
  
     const button = document.createElement("button");
     button.innerText="❌";
@@ -38,8 +41,12 @@ function handleTodoSubmit(event){
     const newTodo = todoInput.value;
    // console.log(newTodo)
     //localStorage only saves tubple not list
-    toDos.push(newTodo)
-    paintTodo(newTodo);
+    const newTodoObj = {
+        text:newTodo,
+        id:Date.now()
+    };
+    toDos.push(newTodoObj) 
+    paintTodo(newTodoObj);
     todoInput.value = "";
     saveTodos();
 }
@@ -53,3 +60,4 @@ if(savedTodos !==null){
     toDos = parsedToDos; //get old todoList
     parsedToDos.forEach(paintTodo);
 }
+
